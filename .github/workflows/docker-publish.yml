@@ -5,8 +5,6 @@ on:
     branches: [ "main" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 env:
@@ -15,7 +13,7 @@ env:
 
 jobs:
   build:
-    runs-on: [self-hosted, Linux, ARM64]
+    runs-on: ubuntu-24.04-arm
     permissions:
       contents: read
       packages: write
@@ -73,6 +71,7 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
           platforms: linux/arm64
+          provenance: false
 
       # Sign the resulting Docker image digest except on PRs.
       # https://github.com/sigstore/cosign
