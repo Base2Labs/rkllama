@@ -71,6 +71,7 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
           platforms: linux/arm64
+          provenance: false
 
       # Sign the resulting Docker image digest except on PRs.
       # https://github.com/sigstore/cosign
